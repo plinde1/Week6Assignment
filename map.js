@@ -70,10 +70,11 @@ require(
                   
                           const markerSymbol = {
                             type: "simple-marker", 
-                            color: [0, 0, 255],
+                            style: "diamond",
+                            color: [0, 255, 255],
                             outline: {
                               // autocasts as new SimpleLineSymbol()
-                              color: [255, 255, 255],
+                              color: [0, 0, 0],
                               width: 2
                             }
                           };
