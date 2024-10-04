@@ -83,7 +83,12 @@ require(
                             geometry: point,
                             symbol: markerSymbol,
                             popupTemplate: {
-                                title: key + ": " + value.city + ", " + value.state
+                                title: key,
+                                content: `
+                                City: ${value.city} <br>
+                                State: ${value.state} <br>
+                                Coordinates: ${value.coord[0]}, ${value.coord[1]}
+                                `
                             }
                           });
                           graphicsLayer.add(pointGraphic);
@@ -92,7 +97,7 @@ require(
                     
                     
                 }
-                initMap()
+                initMap()``
                 return {
            
                 };
