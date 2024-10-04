@@ -85,9 +85,9 @@ require(
                             popupTemplate: {
                                 title: key,
                                 content: `
-                                City: ${value.city} <br>
-                                State: ${value.state} <br>
-                                Coordinates: ${value.coord[0]}, ${value.coord[1]}
+                                <br> City: ${value.city} <br><br>
+                                State: ${value.state} <br><br>
+                                Coordinates: ${value.coord[0]}, ${value.coord[1]} <br><br>
                                 `
                             }
                           });
