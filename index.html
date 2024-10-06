@@ -14,6 +14,12 @@
       width: 100%;
       height: 100%;
     }
+    #search-container {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      padding: 0;
+    }
   </style>
 </head>
 <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/css/main.css">
@@ -24,7 +30,10 @@
 <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
 
 <body>
-
+  <div id="search-container"></div>
+    <input type="text" id="city-input" placeholder="Enter city name..." />
+    <button id="search-button">Search</button>
+  </div>
   <div id="map" class="map">
   </div>
 

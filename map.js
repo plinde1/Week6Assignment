@@ -93,8 +93,7 @@ require(
                           });
                           graphicsLayer.add(pointGraphic);
                     
-                    }
-                    
+                    }   
                     
                 }
                 initMap()``
