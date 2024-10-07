@@ -9,21 +9,22 @@ require(
         "esri/views/SceneView"
     ],
     function(
-       Map, Graphic, GraphicsLayer, ElevationLayer, SceneView
+        Map, Graphic, GraphicsLayer, ElevationLayer, SceneView
     ) {
         $(document).ready(function() {
             Main = (function() {
-                let layer = new ElevationLayer({
+                const layer = new ElevationLayer({
                     url: "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"
                 });
-                var map = new Map({
+
+                const map = new Map({
                     basemap: "hybrid",
                     ground: {
                         layers: [layer]
                     },
                 });
-    
-                var view = new SceneView({
+
+                const view = new SceneView({
                     container: "map",
                     viewingMode: "global",
                     map: map,
@@ -34,7 +35,6 @@ require(
                             z: 20000000,
                             spatialReference: {
                                 wkid: 4326
-    
                             }
                         },
                         heading: 0,
@@ -46,65 +46,72 @@ require(
                             breakpoint: false
                         }
                     },
-                    // enable shadows to be cast from the features
                     environment: {
                         lighting: {
                             directShadowsEnabled: false
                         }
                     }
-                })
-                const initMap = function(){
-               
-                   
-                    // var graphicsLayer = new GraphicsLayer()
+                });
+
+                const initMap = function(myStuff) {
                     const graphicsLayer = new GraphicsLayer();
                     map.add(graphicsLayer);
-                    for (const [key, value] of Object.entries(myStuff)){
-                        console.log(key, value)
+
+                    for (const [key, value] of Object.entries(myStuff)) {
+                        console.log(key, value);
                         const point = {
                             type: "point", 
                             x: value.coord[0],
                             y: value.coord[1],
                             z: 10000
-                          };
-                  
-                          const markerSymbol = {
+                        };
+
+                        const markerSymbol = {
                             type: "simple-marker", 
                             style: "diamond",
                             color: [0, 255, 255],
                             outline: {
-                              // autocasts as new SimpleLineSymbol()
-                              color: [0, 0, 0],
-                              width: 2
+                                color: [0, 0, 0],
+                                width: 2
                             }
-                          };
-                      
-                          const pointGraphic = new Graphic({
+                        };
+
+                        const pointGraphic = new Graphic({
                             geometry: point,
                             symbol: markerSymbol,
                             popupTemplate: {
                                 title: key,
                                 content: `
-                                <br> City: ${value.city} <br><br>
-                                State: ${value.state} <br><br>
-                                Coordinates: ${value.coord[0]}, ${value.coord[1]} <br><br>
+                                    <br> City: ${value.city} <br><br>
+                                    State: ${value.state} <br><br>
+                                    Coordinates: ${value.coord[0]}, ${value.coord[1]} <br><br>
                                 `
                             }
-                          });
-                          graphicsLayer.add(pointGraphic);
-                    
-                    }   
-                    
-                }
-                initMap()``
-                return {
-           
+                        });
+                        graphicsLayer.add(pointGraphic);
+                    }
+
+                    view.on("click", function(event) {
+                        view.hitTest(event).then(function(response) {
+                            const graphic = response.results[0]?.graphic;
+                            if (graphic) {
+                                view.goTo({
+                                    target: graphic.geometry,
+                                    zoom: 10
+                                });
+                            }
+                        });
+                    });
                 };
 
-            })();
-        })
+                initMap(myStuff);
 
-    });
+                return {};
+            })();
+        });
+    }
+);
+
 
 
     
