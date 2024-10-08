@@ -8,7 +8,8 @@ require([
     "esri/views/SceneView",
     "esri/geometry/Point",
     "esri/symbols/SimpleMarkerSymbol",
-    "esri/widgets/Search"
+    "esri/widgets/Search",
+    "esri/smartMapping/labels/clusters"
 ], function(Map, Graphic, GraphicsLayer, ElevationLayer, SceneView, Point, SimpleMarkerSymbol, Search) {
     $(document).ready(function() {
         Main = (function() {
@@ -91,6 +92,25 @@ require([
                             `
                         }
                     });
+                    graphicsLayer.featureReduction = {
+                        type: "cluster",
+                        labelingInfo: [{
+                            labelExpressionInfo: {
+                                expression: "$feature.cluster_count"
+                            },
+                            deconflictionStrategy: "none",
+                            labelPlacement: "center-center",
+                            symbol: {
+                                type: "text",
+                                color: "white",
+                                font: {
+                                    size: "12px"
+                                },
+                                haloSize: 1,
+                                haloColor: "black"
+                            }
+                        }]
+                    };
 
                     graphicsLayer.add(pointGraphic);
                 }
