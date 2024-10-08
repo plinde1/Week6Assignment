@@ -10,6 +10,7 @@ require([
     "esri/symbols/SimpleMarkerSymbol",
     "esri/widgets/Search",
     "esri/smartMapping/labels/clusters"
+    
 ], function(Map, Graphic, GraphicsLayer, ElevationLayer, SceneView, Point, SimpleMarkerSymbol, Search) {
     $(document).ready(function() {
         Main = (function() {
